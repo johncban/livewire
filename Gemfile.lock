@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/damln/localtower.git
+  revision: 05dc5ce9fcd775004709d821bd9cb6a8dcc7f7d8
+  specs:
+    localtower (0.3.1)
+      active_link_to
+      pg
+      rails (>= 4.2.0)
+      require_reloader
+      rubyzip
+      sqlite3
+      thor
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -37,6 +50,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_link_to (1.0.5)
+      actionpack
+      addressable
     activejob (6.0.3.2)
       activesupport (= 6.0.3.2)
       globalid (>= 0.3.6)
@@ -137,6 +153,9 @@ GEM
     nokogiri (1.10.10-x86-mingw32)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
+    pg (1.2.3)
+    pg (1.2.3-x64-mingw32)
+    pg (1.2.3-x86-mingw32)
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
@@ -178,6 +197,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.1)
+    require_reloader (0.2.1)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -265,6 +285,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.2)
+  localtower!
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
   sass-rails (>= 6)

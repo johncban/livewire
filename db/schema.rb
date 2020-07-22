@@ -10,7 +10,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_100628) do
+ActiveRecord::Schema.define(version: 2020_07_21_124008) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "appointment_date"
+    t.boolean "public"
+    t.integer "location_id", null: false
+    t.integer "user_id", null: false
+    t.index ["location_id"], name: "index_appointments_on_location_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.float "longitude"
+    t.float "latitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "portfolios", force: :cascade do |t|
+    t.string "portfolio_name"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_portfolios_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.boolean "public"
+    t.integer "user_id", null: false
+    t.integer "appointment_id", null: false
+    t.integer "portfolio_id", null: false
+    t.index ["appointment_id"], name: "index_posts_on_appointment_id"
+    t.index ["portfolio_id"], name: "index_posts_on_portfolio_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.string "symbol"
+    t.integer "quantity"
+    t.integer "portfolio_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["portfolio_id"], name: "index_stocks_on_portfolio_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,4 +81,11 @@ ActiveRecord::Schema.define(version: 2020_07_20_100628) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "appointments", "locations"
+  add_foreign_key "appointments", "users"
+  add_foreign_key "portfolios", "users"
+  add_foreign_key "posts", "appointments"
+  add_foreign_key "posts", "portfolios"
+  add_foreign_key "posts", "users"
+  add_foreign_key "stocks", "portfolios"
 end
