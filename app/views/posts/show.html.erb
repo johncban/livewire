@@ -1,0 +1,21 @@
+<% if @post.user %>
+  <div id="post-<%= @post.id %>" class="post">
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3 well">
+        <span class="text"><%= @post.post_content_html %></span>
+      </div>
+    </div>
+    <% if @post.user == current_user %>
+     <%= link_to 'Destroy', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    <div>
+      <div>
+        <h4>Comments</h4>
+        <hr>
+        <div class="comments">
+          <%= render partial: "comments/template", locals: {commentable: @post, new_comment: @new_comment} %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

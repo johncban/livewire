@@ -1,0 +1,38 @@
+<br>
+<% comments.each do |comment| %>
+<div class="level">
+  <article class="media">
+    <div class="media-left">
+      <strong><%= comment.user.name %></strong> 
+    </div>
+    <div class="">
+      <div class="box">
+        <small class="content is-small"><%= comment.user.email %> <%= comment.created_at %></small>
+        <p class="content is-medium">
+          <%= comment.body_html %>
+        </p>
+        
+        <nav class="level is-mobile">
+            <div class="level-left">
+              <%= form_for @new_comment do |f| %>
+                <%= f.hidden_field :commentable_id, value: @new_comment.commentable_id %>
+                <%= f.hidden_field :commentable_type, value: @new_comment.commentable_type %>
+                <%= f.hidden_field :comment_id, value: comment.id %>
+                <div class="field form-group">
+                  <%= f.text_area :body, class: 'form-control' %>
+                </div>
+                <div class="field form-group">
+                  <%= submit_tag "Post Reply", class: 'btn btn-primary' %>
+                </div>
+              <% end %>
+            </div>
+        </nav>
+
+      </div>
+      <div class="is-small">
+        <%= render partial: "comments/reply", locals: {comments: comment.children} %>
+      </div>
+    </div>
+  </article>
+</div>
+<% end %>

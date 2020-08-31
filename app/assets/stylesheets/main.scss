@@ -1,0 +1,36 @@
+body {
+  background: url('https://images.pexels.com/photos/370717/pexels-photo-370717.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260') no-repeat center center fixed;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+.login {
+    background-color:rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    box-shadow:0 0 .50em rgba(0,0,0,.70);
+    box-sizing:border-box;
+    left:50%;
+    padding:10vmin;
+    position:fixed;
+    text-align:center;
+    top:50%;
+    transform:translate(-50%, -50%);
+}
+  
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .login{
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.5);  
+    }
+    .warning {
+      display: none;
+    }
+}
+  
+  
+  

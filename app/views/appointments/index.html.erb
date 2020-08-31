@@ -1,0 +1,39 @@
+<section class="hero is-dark">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Appointments
+      </h1>
+      <h2 class="subtitle">
+        Your day to day or weekly appointment logs.
+      </h2>
+    </div>
+  </div>
+</section>
+<br>
+<p id="notice"><%= notice %></p>
+
+<div class="table-container">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Appointment</th>
+      <th>Description</th>
+      <th>Appointment Date</th>
+      <th>Appointment Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% current_user.appointments.each do |appointment| %>
+      <%= render 'index_fields', appointment: appointment %>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to '<button class="button is-primary is-outlined">New Appointment</button>'.html_safe, new_appointment_path %>
+</div>
+
+

@@ -1,0 +1,20 @@
+<%= form_for @post do |fr| %>
+    <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this beer from being saved:</h2>
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field form-group">
+        <%= fr.label :post_content %><br />
+        <%= fr.text_area :post_content, class: 'form-control' %>
+      </div>
+      <div class="actions form-group">
+        <%= fr.submit %>
+      </div>
+<% end %>
