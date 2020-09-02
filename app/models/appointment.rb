@@ -1,11 +1,14 @@
 class Appointment < ApplicationRecord
-    validates_presence_of :appt_name, :appt_description, :appt_date, :appt_address, :appt_city, :appt_state
+    validates_presence_of :appt_name, :appt_description, :appt_date
 
     belongs_to :user    
     #has_many :posts, dependent: :destroy
 
-    geocoded_by :actual_location
-    after_validation :geocode
+    has_many :users, through: :locations
+    has_many :locations
+    accepts_nested_attributes_for :locations, allow_destroy: true
+
+    
 
 
     def add_user(user)
@@ -66,11 +69,4 @@ class Appointment < ApplicationRecord
     end
 
 
-    def self.by_city
-        order(:appt_city)
-    end
-
-    def actual_location
-        [appt_address, appt_city, appt_state].compact.join(', ')
-    end
 end

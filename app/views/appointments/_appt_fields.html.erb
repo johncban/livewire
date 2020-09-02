@@ -15,20 +15,20 @@
 
 <p>
   <strong>Appt address:</strong>
-  <%= @appointment.appt_address %>
+  <%= @appointment.locations.first.appt_address %>
 </p>
 
 <p>
   <strong>Appt city:</strong>
-  <%= @appointment.appt_city %>
+  <%= @appointment.locations.first.appt_city %>
 </p>
 
 <p>
   <strong>Appt state:</strong>
-  <%= @appointment.appt_state %>
+  <%= @appointment.locations.first.appt_state %>
 </p>
 
 <p>
   <strong>Coordinates:</strong>
-  <%= @appointment.latitude %>, <%= @appointment.longitude %>
+  <%= @appointment.locations.first.latitude %>, <%= @appointment.locations.first.longitude %>
 </p>

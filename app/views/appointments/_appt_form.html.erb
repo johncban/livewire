@@ -30,25 +30,27 @@
     <%= form.datetime_select :appt_date, class: "select" %>
   </div>
 
-  <div class="field">
+  <%= form.fields_for :locations do |loc| %>
+    <div class="field">
     <label class="label">Appointment Address</label>
       <div class="control">
-        <%= form.text_field :appt_address, class: 'input', placeholder: "Appt Address" %>
+        <%= loc.text_field :appt_address, class: 'input', placeholder: "Appt Address" %>
       </div>
-  </div>
+    </div>
 
-  <div class="field">
-    <label class="label">Appointment City</label>
-      <div class="control">
-        <%= form.text_field :appt_city, class: 'input', placeholder: "Appt City" %>
-      </div>
-  </div>
+    <div class="field">
+      <label class="label">Appointment City</label>
+        <div class="control">
+          <%= loc.text_field :appt_city, class: 'input', placeholder: "Appt City" %>
+        </div>
+    </div>
 
-  <div class="field">
-    <label class="label">State</label>
-    <%= form.collection_select :appt_state, State.all, :statename, :statename, include_blank: true %>
-  </div>
-
+    <div class="field">
+      <label class="label">State</label>
+      <%= loc.collection_select :appt_state, State.all, :statename, :statename, include_blank: true %>
+    </div>
+  <% end %>
+  
   
 
   <div class="actions">

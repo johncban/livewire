@@ -10,17 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_30_211030) do
+ActiveRecord::Schema.define(version: 2020_09_01_013352) do
 
   create_table "appointments", force: :cascade do |t|
     t.string "appt_name"
     t.text "appt_description"
     t.datetime "appt_date"
-    t.string "appt_address"
-    t.string "appt_city"
-    t.string "appt_state"
-    t.float "longitude"
-    t.float "latitude"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -33,13 +28,15 @@ ActiveRecord::Schema.define(version: 2020_08_30_211030) do
     t.string "title"
     t.text "body"
     t.string "subject"
-    t.integer "user_id", null: false
+    t.integer "user_id"
+    t.integer "post_id"
     t.integer "parent_id"
     t.integer "lft"
     t.integer "rgt"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -59,6 +56,20 @@ ActiveRecord::Schema.define(version: 2020_08_30_211030) do
     t.integer "blocker_id"
     t.integer "status"
     t.index ["friendable_id", "friend_id"], name: "index_friendships_on_friendable_id_and_friend_id", unique: true
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "appt_address"
+    t.string "appt_city"
+    t.string "appt_state"
+    t.float "longitude"
+    t.float "latitude"
+    t.integer "user_id"
+    t.integer "appointment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_locations_on_appointment_id"
+    t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|

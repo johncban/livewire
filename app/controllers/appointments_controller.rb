@@ -20,6 +20,7 @@ class AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     @appointment.user_id = current_user.id 
+    @appointment.locations.build
   end
 
   def edit
@@ -28,7 +29,9 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new(appointment_params)
+    #@appointment = Appointment.new(appointment_params)
+    @appointment = current_user.appointments.new(appointment_params)
+    @appointment.locations.first.user_id = current_user.id
     @appointment.user_id = current_user.id 
     respond_to do |format|
       if @appointment.save
@@ -67,6 +70,12 @@ class AppointmentsController < ApplicationController
     end
 
     def appointment_params
-      params.require(:appointment).permit(:appt_name, :appt_description, :appt_date, :appt_address, :appt_city, :appt_state)
+      params.require(:appointment).permit(:appt_name, :appt_description, :appt_date, 
+                                          :locations_attributes => [
+                                            :appt_address, 
+                                            :appt_city, 
+                                            :appt_state
+                                           ]
+                                          )
     end
 end
