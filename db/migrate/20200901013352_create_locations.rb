@@ -6,10 +6,9 @@ class CreateLocations < ActiveRecord::Migration[6.0]
       t.string :appt_state
       t.float :longitude
       t.float :latitude
-      t.belongs_to :user 
-      t.belongs_to :appointment 
+      t.belongs_to :user
+      t.belongs_to :appointment
       t.timestamps
     end
   end
 end
-

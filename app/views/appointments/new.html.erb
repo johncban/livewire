@@ -1,8 +1,10 @@
 <h1>New Appointment</h1>
 
 <p>Find me in app/views/appointments/new.html.erb</p>
+<%#= form_with(model: appointment, local: true) do |form| %>
+<%= form_for([@user, @appointment], local: true) do |form| %> <%# https://stackoverflow.com/questions/41147681/undefined-method-appointments-path-using-nested-resource %>
+    <%= render 'appt_form', appointment: @appointment %>
+<%end%>
 
-
-<%= render 'appt_form', appointment: @appointment %>
 <br>
-<%= link_to 'Back', appointments_path %>
+<%= link_to 'Back', user_appointments_path %>

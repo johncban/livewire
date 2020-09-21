@@ -1,4 +1,18 @@
-<td><%= post.post_content %></td>
-<td><%= link_to 'Show', post %></td>
-<td><%= link_to 'Edit', edit_post_path(post) %></td>
-<td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<td>
+    <h4> 
+        <%= post.name %> | <%= post.created_at %>
+    </h4>
+    <br>
+    <p>
+        <%= post.post_content_html %>
+    </p>
+</td>
+<tr>
+    <td>       
+        <%= link_to 'Show', user_post_path(current_user.id, post) %> | 
+        <%= link_to 'Edit', edit_user_post_path(current_user.id, post) %> | 
+        <%= link_to 'Destroy', user_post_path(current_user.id, post), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <hr>
+    </td>
+</tr>
+

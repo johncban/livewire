@@ -1,12 +1,17 @@
-<section class="hero is-medium is-primary is-bold">
+<section class="hero is-medium is-light is-bold">
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
         LiveWire Dashboard
       </h1>
-      <h2 class="subtitle">
-        <%= current_user.name %>
-      </h2>
+        <div class="shadow user-name-bkg-glass">
+          <h2 class="title user-name-margin">
+            <a href="/users/<%= current_user.id %>">
+              <%= current_user.name %>
+            </a>
+          </h2>
+        </div>
+        <br>
       <h4>
          <div class="columns is-mobile is-multiline">
                   <div class="column is-narrow">
@@ -44,23 +49,26 @@
             <img src="https://bulma.io/images/placeholders/640x480.png">
           </figure>
           -->
-         <div class="ex1">
-          <% @data["articles"].each do |articles| %>
-                    <ul>
-                      <li>
-                        <!-- https://www.thesitewizard.com/html-tutorial/open-links-in-new-window-or-tab.shtml -->
-                        <h3>
-                          <a class="news-title-link" href="<%= articles['url'] %>" target="_blank" rel="noopener noreferrer">
-                            <%= articles['title'] %>
-                          </a>
-                        </h3>
-                          <figure class="image is-4by3">
-                            <img src="<%= articles['urlToImage'] %>"
-                          </figure>
-                          <hr>
-                      </li>
-                    </ul>
-          <% end %>
+         <div class="scroll-content shadow">
+            <% @data["articles"].each do |articles| %>
+              <ul>
+                        <li>
+                            <a href="<%= articles['url'] %>" target="_blank" rel="noopener noreferrer">
+                              <!-- https://www.thesitewizard.com/html-tutorial/open-links-in-new-window-or-tab.shtml -->
+                              <h2>
+                                  <%= articles['title'] %>
+                              </h2>
+                                <small>
+                                  <%= articles['publishedAt'] %>
+                                </small>
+                                <figure class="image is-4by3">
+                                  <img src="<%= articles['urlToImage'] %>">
+                                </figure>
+                            </a>
+                            <br><br>
+                        </li>
+              </ul>
+            <% end %>
           </div>
         </article>
       </div>
@@ -71,6 +79,7 @@
         <p class="subtitle">Aligned with the right tile</p>
         <div class="content">
           <!-- Content -->
+
         </div>
       </article>
     </div>
@@ -78,12 +87,27 @@
   <div class="tile is-parent">
     <article class="tile is-child notification is-success">
       <div class="content">
-        <p class="title">Tall tile</p>
+        <p class="title">Posts</p>
         <p class="subtitle">
-          Friends list here
+          There are <%= @post.count %> Posts
         </p>
-        <div class="content">
-          <!-- Content -->
+        <div class="scroll-content column shadow">
+          <!-- Content -->  
+          <% @post.each do |post| %>
+            <%#= post.post_content_html %>
+            <% if current_user.id == post.user_id %>
+                  <%= post.post_content_html %>
+                  <small>
+                    <%= post.created_at %>
+                  </small>
+                  <br>
+                    <%= link_to 'Show', user_post_path(current_user.id, post) %> | 
+                    <%= link_to 'Edit', edit_user_post_path(current_user.id, post) %> | 
+                    <%= link_to 'Destroy', user_post_path(current_user.id, post), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <br>
+                  <br>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </article>

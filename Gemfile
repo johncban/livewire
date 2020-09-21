@@ -28,34 +28,46 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-gem 'geocoder'
-gem 'devise'
-gem 'jquery-rails'
-gem 'sassc-rails'
-gem 'rdoc'
-gem 'has_friendship'
-gem 'auto_html', '~>1.6.4'
 gem 'acts_as_commentable_with_threading'
-gem 'link_thumbnailer'
-gem "bulma-rails"
+gem 'auto_html', '~>1.6.4'
 gem 'bulma-extensions-rails'
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'bulma-rails'
+gem 'devise'
+gem 'dotenv-rails', groups: %i[development test]
+gem 'geocoder'
+gem 'has_friendship'
+gem 'jquery-rails'
+gem 'link_thumbnailer'
+gem 'rdoc'
+gem 'routes_coverage', groups: [:test]
+gem 'sassc-rails'
+gem 'omniauth-google-oauth2'
+gem 'activerecord-session_store'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'rails-erd'
+  gem 'rspec-rails'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  # Rubocop debugging
+  gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec' # or gem 'rubocop-minitest'
+
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do
@@ -63,9 +75,9 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
   gem 'shoulda-matchers'
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

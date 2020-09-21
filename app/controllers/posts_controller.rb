@@ -1,31 +1,38 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:create, :show, :edit, :update, :destroy]
+  before_action :set_post, only: %i[create show edit update destroy]
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-  def index 
-    @posts = Post.all
+  def index
+    if params[:user_id] == current_user.id
+      @posts = User.find(params[:id]).posts 
+    else 
+      @posts = Post.published
+=begin
+      @posts = if params[:user_id]
+                #Post.find(params[:user_id])
+                Post.all
+              else
+                Post.published
+              end
+=end
+    end
   end
 
   def show
-        
-        @post = Post.find(params[:id])
-        @src = URI.extract(@post.post_content)[0]
-        #@dat_post = @src.to_s.gsub('"', '')
-        #@preview = LinkThumbnailer.generate(@dat_post)
-        #@preview_title = @preview.title 
-        #@preview_desc = @preview.description
-        #@preview_image = @preview.images.first
-        #preview_json = @preview.to_json
-        #p preview_json
-        #@comments = @post.comments.all
-        #commontator_thread_show(@poss)
-        @new_comment = Comment.build_from(@post, current_user.id, "")
- 
+    @post = Post.find(params[:id])
+    @src = URI.extract(@post.post_content)[0]
+    @new_comment = Comment.build_from(@post, current_user.id, '')
+
+    if @post.published == false && @post.user_id != current_user.id 
+      redirect_to :user_posts, warning: 'Post Not Published'
+    elsif @post.published == false && @post.user_id == current_user.id 
+      redirect_to :edit_user_post, info: 'Enable Publish to Public Posts'
+    end
   end
 
-  def new 
+  def new
     @post = Post.new
     @post.user_id = current_user.id
   end
@@ -36,7 +43,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
-      else 
+      else
         format.html { render :new }
       end
     end
@@ -46,44 +53,40 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-
   def update
-    if @user == current_user
-       @post.update(post_params)
-       redirect_to @post
-    else 
-       flash[:error] = "Invalid User"
-       redirect_to @post
+    @post = Post.find(params[:id])
+    if @post.user_id == current_user.id
+      @post.update(post_params)
+      redirect_to :user_posts, info: 'Post Updated'
+    else
+      redirect_to :user_posts, error: 'Invalid Post Owner'
     end
   end
 
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
-    redirect_to root_path
-=begin
-    @post.destroy
-    respond_to do |format|
-      format.js
-      format.html { redirect_to root_path }
+    if @post.user_id == current_user.id
+      @post.destroy
+      redirect_to :posts, info: 'Post Deleted'
+    else
+      redirect_to :posts, error: 'Not Authorized!'
     end
-=end
   end
+
 
   def render_404
-    puts "ERROR"
+    redirect_to :user_posts, error: 'Not Available'
   end
 
-
-private
+  private
 
   def set_post
+    # @post = Post.find(params[:id])
     @post = Post.find_by(params[:id])
-    #@post = Post.find(params[:id])
-    #render_404 and return unless @post && User.find_by(id: @post.user_id)
+    # render_404 and return unless @post && User.find_by(id: @post.user_id)
   end
 
   def post_params
-    params.require(:post).permit(:post_content)
+    params.require(:post).permit(:post_content, :published)
   end
 end

@@ -2,12 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.ex1 {
+.scroll-content {
     overflow-y: auto;
     width: 100%;
-    height: 300px;
+    height: 500px;
+    flex-direction: column;
+
+    &.is-narrow {
+      width: 220px;
+    }
+    
+    // right panel
+    // this panel will be twice as wide
+    // as the left-hand panel
+    // remove flex definition below for a 50/50 split
+    &:last-of-type {
+      flex: 2 1 auto;
+    }
 }
 
-.news-title-link {
-    text-decoration: none;
+.shadow {
+  -webkit-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+  -moz-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+  box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+}
+
+.user-name-bkg-glass {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+}
+
+.user-name-margin {
+  margin-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

@@ -1,3 +1,2 @@
 class FollowsController < ApplicationController
-    
 end

@@ -1,41 +1,39 @@
 class Post < ApplicationRecord
-    belongs_to :user
-
-    validates_presence_of :post_content
-    validates_presence_of :user
-    
-    acts_as_commentable
-    
-    has_many :users, through: :comments
-
-    auto_html_for :post_content do
-        html_escape
-        image
-        youtube(width: 400, height: 250, autoplay: false)
-        link target: '_blank', rel: 'nofollow'
-        simple_format
-    end    
+  validates_presence_of :post_content
+  validates_presence_of :user
 
 
-    #default_scope { where(pst_published: true) }
+  acts_as_commentable
 
-    def self.by_date
-        order(:created_at)
-    end
+  belongs_to :user
+  delegate :name, to: :user
 
-    def self.by_specific_user user
-        Post.select{|p| p.user_id == user.id}
-    end
+  has_many :users, through: :comments
 
-    def self.by_portfolio portfolio
-        Post.select{|p| p.portfolio_id == portfolio.id}
-    end
+  auto_html_for :post_content do
+    html_escape
+    image
+    youtube(width: 400, height: 250, autoplay: false)
+    link target: '_blank', rel: 'nofollow'
+    #simple_format
+  end
 
+  scope :published, -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
 
-    def self.by_appointment appointment
-        Post.select{|p| p.appointment_id == trip.id}
-    end
+  def self.by_date
+    order(:created_at)
+  end
 
+  def self.by_specific_user user
+    Post.select { |p| p.user_id == user.id }
+  end
 
+  def self.by_portfolio portfolio
+    Post.select { |p| p.portfolio_id == portfolio.id }
+  end
 
+  def self.by_appointment _appointment
+    Post.select { |p| p.appointment_id == trip.id }
+  end
 end

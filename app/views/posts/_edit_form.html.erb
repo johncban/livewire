@@ -1,7 +1,8 @@
-<%= form_for @post do |fr| %>
-    <% if @post.errors.any? %>
+<%#= form_for(@post) do |fr| %> <%# https://stackoverflow.com/questions/14740702/form-for-undefined-method-user-path  %>
+   
+      <% if @post.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this beer from being saved:</h2>
+          <h2><%= pluralize(@post.errors.count, "error") %> -- </h2>
           <ul>
             <% @post.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
@@ -12,9 +13,9 @@
 
       <div class="field form-group">
         <%= fr.label :post_content %><br />
-        <%= fr.text_area :post_content, class: 'form-control' %>
+        <%= fr.text_area :post_content, class: 'form-control' %><br />
+        <%= fr.check_box :published %>
       </div>
       <div class="actions form-group">
         <%= fr.submit %>
       </div>
-<% end %>

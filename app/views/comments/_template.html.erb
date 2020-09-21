@@ -1,8 +1,8 @@
-<div>
-  <h4>
-    <%= commentable.comment_threads.count == 0 ? "no" : commentable.comment_threads.count %> comments
-  </h4>
-</div>
+<h4>
+  There are <%= commentable.comment_threads.count == 0 ? "no" : commentable.comment_threads.count %> comments for this Post.
+</h4>
+
+<hr>
 
 <%= render partial: "comments/form", locals: {new_comment: new_comment} %>
 

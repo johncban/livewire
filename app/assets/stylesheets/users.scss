@@ -15,4 +15,32 @@
 #tabs-with-content .tab-content.is-active {
     display: block;
 }
+
+.post-footer {
+    text-align: center;
+}
+
+.shadow {
+    -webkit-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    -moz-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    padding: 10px;
+}
+  
+
+.shadow-posts {
+    text-align: center;
+    -webkit-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    -moz-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.shadow-friends {
+    text-align: center;
+    -webkit-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    -moz-box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+    box-shadow: -7px 11px 25px -9px rgba(0,0,0,1);
+}
   

@@ -1,0 +1,25 @@
+.signup {
+    background-color:rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    box-shadow:0 0 .50em rgba(0,0,0,.70);
+    box-sizing:border-box;
+    left:50%;
+    padding:10vmin;
+    position:fixed;
+    top:50%;
+    transform:translate(-50%, -50%);
+}
+  
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .signup{
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.5);  
+    }
+    .warning {
+      display: none;
+    }
+}
+  
+  
+  

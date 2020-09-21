@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- <title>Livewire</title> -->
     <title><%= content_for?(:title) ? yield(:title) : "Livewire" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Livewire" %>">
@@ -9,12 +10,14 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application' %>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
 
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
+
     <link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/lux/bulmaswatch.min.css">
   </head>
 
@@ -28,9 +31,10 @@
 
       <%= render "shared/flash" %>
 
-      
-      <p class="notice"><!-- %= notice % --></p>
-      <p class="alert"><!-- %= alert % --></p>
+      <!--
+      <p class="notice"><%#= notice %></p>
+      <p class="alert"><%#= alert %></p>
+      -->
 
       <%= yield %>
     </section>

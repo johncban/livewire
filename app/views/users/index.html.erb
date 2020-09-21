@@ -1,0 +1,9 @@
+<% if @users.name %>
+    <% @users.each do |user| %>
+        <section class="ui basic segment">
+            <span class="ui header">
+              <%= link_to  user.name, user_path(user)%>
+            </span>
+        </section>
+    <% end %>
+<% end %>

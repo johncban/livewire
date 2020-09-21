@@ -1,45 +1,99 @@
 <section class="hero is-primary is-medium">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">
-        <%= @user.name %>
-      </h1>
-      <h2 class="subtitle">
-        Member since <%= @user.created_at %>
-      </h2>
-            <% if @user == current_user %>
+      <section class="shadow">
+        <h1 class="title">
+          <%= username(@user) %>
+        </h1>
+        <h2 class="subtitle">
+          Member since <%= signupdate(@user) %>
+        </h2>
+      </section>
+      <br>
+        <%= username(@user)  %> follow <%= @user.followees.count %> users.
+          <br>
+        <%= username(@user)  %> have <%= @user.followers.count %> followers.
+        <hr>
+        <table>
+          <tr>
+            <td>
+              <% if @user.friends_with?(@user) %>
+                <div class="ui basic segment">
+                  <%= form_tag ({controller: 'friends', action: 'remove', method: 'post', id: @user.id}) do %>
+                    <input class="button is-warning is-light" type=submit value='Unfriend'>
+                  <% end %>
+                </div>
+              <% end %>
+              <% if current_user.not_friends.include?(@user) %>
+                <div class="ui basic segment">
+                  <%= form_tag ({controller: 'friends', action: 'create', method: 'post', id: @user.id}) do %>
+                    <input class="button is-success is-light" type=submit value='Send Friend Request'>
+                  <% end %>
+                </div>
+              <% end %>
+            </td>
+            <td>
+              <% if @user == current_user %>
                 <div class="columns is-mobile is-multiline">
                     <div class="column is-narrow">
-                        <p class="bd-notification is-primary">
-                            <%= @user.name %> follow <%= @user.followees.count %> users.
-                            <br>
-                            <%= @user.name %> have <%= @user.followers.count %> followers.
-                        </p>
+                        <div class="ui basic segment">
+                          <a class="ui tiny basic positive button" href="/users/edit">Edit Profile</a>
+                          <%= link_to "Delete Your Account", user_registration_path(anchor: 'resource_name'), class: "ui tiny basic positive button", method: :delete %>
+                        </div>
                     </div>
                 </div>
-            <% elsif current_user.followees.include?(@user) %>
-                <%= button_to "Unfollow", unfollow_user_path, method: "POST", :class => "button is-black" %>
-            <% else %>
-                <%= button_to "Follow", follow_user_path, method: "POST", :class => "button is-white" %>
-            <% end%>
+                  <% elsif current_user.followees.include?(@user) %>
+                      <%= button_to "Unfollow", user_unfollow_user_path(user_id(@user)), method: "POST", :class => "button is-black" %>
+                  <% else %>
+                      <%= button_to "Follow", user_follow_user_path(user_id(@user)), method: "POST", :class => "button is-info is-light" %>
+              <% end%>
+            </td>
+          </tr>
+        </table>
     </div>
   </div>
 </section>
 
-
 <div id="tabs-with-content">
   <div class="tabs is-centered">
     <ul>
+      <li><a>Posts</a></li>
       <li><a>Followers</a></li>
       <li><a>Following</a></li>
       <li><a>Friends</a></li>
-      <li><a>Posts</a></li>
     </ul>
   </div>
   <div>
     <section class="tab-content">
-        <%= @user.followers.count %> Followers.
-        <hr>
+        <% @posts.each do |post| %>
+          <% if @user.id == post.user_id %>
+
+            <section class="section">
+              <div class="container">
+                <div class="columns is-centered shadow-posts">
+                  <div class="column">
+                        
+                      <%= post.post_content_html %>
+                          <div class = "media-content">
+                          <div class="post-footer">
+                            <%= link_to 'Comment', user_post_path(current_user.id, post) %> |
+                            <time>
+                              <%= post.created_at %>
+                            </time>
+                          </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          <% end %>
+        <% end %>
+    </section>
+    <section class="tab-content">
+        <h3>
+          <%= @user.followers.count %> Followers
+        </h3>
+        <br>
         <% @followers.each do |f| %> 
             <ul>
                 <li><%= f.name %></li>
@@ -47,15 +101,37 @@
         <% end %>
     </section>
     <section class="tab-content">
-        Following <%= @user.followees.count %> Users.
-        <hr>
+        <h3>
+          Following <%= @user.followees.count %> Users
+        </h3>
+        <br>
         <% @followees.each do |f| %> 
             <ul>
                 <li><%= f.name %></li>
             </ul>
         <% end %>
     </section>
-    <section class="tab-content">Friends list here</section>
-    <section class="tab-content">Posts here</section>
+    <section class="tab-content">
+
+      <section class="section">
+        <div class="container shadow-friends">
+          <div class="columns is-centered">
+            <div class="column is-half">
+              <div class="ui vertical segment">
+                <% if @user.friends? %>
+                  <% @friends.each do |friend| %>
+                    <section class="ui basic segment">
+                      <span class="ui header">
+                        <%= link_to  friend.name, user_path(friend) %>
+                      </span>
+                    </section>
+                  <% end %>
+                <% end %>
+              </div>      
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
   </div>
 </div>
