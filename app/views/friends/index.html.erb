@@ -1,85 +1,175 @@
-This is friends page
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Registered Users
+      </h1>
+      <h2 class="subtitle">
+        Add your perspective colleague or friends.
+      </h2>
+    </div>
+  </div>
+</section>
 
-<main class="ui two column doubling stackable grid container">
-    <section class="column">
-        <div class="ui teal segment">
-            <% if @user.friend_requests? %>
-                <div class="ui vertical clearing segment">
-                    <header class="ui basic segment">
-                        <h3 class="ui header">Friend Requests:</h3>
-                    </header>
-                    <% @requests.each do |friend| %>
-                        <section class="ui basic segment">
-                            <span class="ui green header">
-                                <%= friend.name%>
-                            </span>
-                            <div class="ui basic segment">
-                                <%= form_tag ({controller: 'friends', action: 'add', method: 'post', id: friend.id}) do %>
-                                    <input class="ui basic tiny left floated positive button" type=submit value='Accept'>
-                                <% end %>
-                                <%= form_tag ({controller: 'friends', action: 'reject', method: 'post', id: friend.id}) do %>
-                                            <input class="ui basic tiny right floated negative button" type=submit value='Politely Refuse'>
-                                <% end %>
-                            </div>
-                        </section>
-                        <% end %>
-                </div>
-                <% end %>
-                    <% if @user.requested_friends? %>
-                        <div class="ui vertical segment">
-                            <header class="ui basic segment">
-                                <h3 class="ui header">Pending:</h3>
-                            </header>
-                            <% @pending.each do |friend| %>
-                                <section class="ui basic segment">
-                                    <span class="ui yellow header">
-                                        <%= friend.name%>
-                                    </span>
-                                </section>
-                                <% end %>
-                        </div>
-                        <% end %>
-                            <header class="ui basic segment">
-                                <h3 class="ui header">Your Friends:</h3>
-                            </header>
-                            <div class="ui vertical segment">
-                                <% if @user.friends? %>
-                                    <% @friends.each do |friend| %>
-                                        <section class="ui basic segment">
-                                            <span class="ui header">
-                                                <%= link_to  friend.name, user_path(friend) %>
-                                            </span>
-                                        </section>
-                                        <% end %>
-                                            <% end %>
-                            </div>
-        </div>
-    </section>
-    <section class="column">
-        <section class="ui basic segment">
-            <header class="ui basic segment">
-                <h3 class="ui header">Find Friends</h3>
-            </header>
-            <div class="ui basic segment">
-                <%= form_tag ({controller: 'friends', action: 'search'}) do %>
-                    <div class="ui input">
-                        <input type="text" name="search" id="search">
-                    </div>
-                    <input class="ui mini basic button" type="submit" name="commit" value="Search" data-disable-with="Search">
-                <% end %>
-            </div>
-            <% @user.not_friends.sample(5).each do |user| %>
-                <section class="ui basic segment">
-                    <span class="ui header">
-                    <%= link_to user.name, user_path(user) %>
+<nav class="panel">
+    <div class="panel-block">
+        <%= form_tag ({controller: 'friends', action: 'search'}) do %>
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="search" id="search" placeholder="Search Users and Enter">
+                <span class="icon is-left">
+                    <i class="fas fa-search" aria-hidden="true" type="submit" name="commit" value="Search" data-disable-with="Search"></i>
                 </span>
-                    <div class="ui basic segment">
-                        <%= form_tag ({controller: 'friends', action: 'create', method: 'post', id: user.id}) do %>
-                            <input class="ui basic button" type=submit value='Add Friend'>
+            </p>
+        <% end %>
+    </div>
+    <div id="tabs-with-content">
+        <div class="tabs is-centered">
+            <ul>
+                <li><a>Friends</a></li>
+                <li><a>User Request</a></li>
+                <li><a>Pending Request</a></li>
+                <li><a>Users</a></li>
+            </ul>
+        </div>
+
+        <section class="tab-content">
+            <% if @user.friends? %>
+                    <% @friends.each do |friend| %>
+                    <div class="ui vertical segment">
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                            <strong>
+                                                <%= link_to  friend.name, user_path(friend) %>
+                                            </strong>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <hr>
+                <% end %>
+            <% end %>
+        </section>
+
+        <section class="tab-content">
+            <% if @user.friend_requests? %>
+                    <div class="ui vertical clearing segment friends-margin">
+                        <% @requests.each do |friend| %>
+                            <section class="ui basic segment">
+                                <div class="box">
+                                <article class="media">
+                                    <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>
+                                                <%= link_to  friend.name, user_path(friend) %>
+                                            </strong>
+                                            |
+                                            <small>
+                                                <%= friend.email %>
+                                            </small>
+                                            | 
+                                            <small>
+                                                <%= friend.created_at %>
+                                            </small>
+                                        </p>
+                                    </div>
+                                    <nav class="level is-mobile">
+                                        <div class="level-left">
+                                            <%= form_tag ({controller: 'friends', action: 'add', method: 'post', id: friend.id}) do %>
+                                                <button class="button">
+                                                    <span class="icon is-small">
+                                                        <i class="fas fa-user-check"></i>
+                                                    </span>
+                                                </button>
+                                            <% end %>
+                                            <%= form_tag ({controller: 'friends', action: 'reject', method: 'post', id: friend.id}) do %>
+                                                <button class="button">
+                                                    <span class="icon is-small">
+                                                        <i class="fas fa-user-times"></i>
+                                                    </span>
+                                                </button>
+                                            <% end %>
+                                        </div>
+                                    </nav>
+                                    </div>
+                                </article>
+                            </div>
+                            </section>
                         <% end %>
                     </div>
-                </section>
+                    <hr>
+                    <% else %>
+                    No User or Friends Request.
+            <% end %>
+        </section>
+
+        <section class="tab-content">
+                <% if @user.requested_friends? %>
+                    <% @pending.each do |friend| %>
+                    <div class="ui vertical segment">
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>
+                                                <%= link_to  friend.name, user_path(friend) %>
+                                            </strong>
+                                            |
+                                            <small>
+                                                <%= friend.email %>
+                                            </small>
+                                            | 
+                                            <small>
+                                                <%= friend.created_at %>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <hr>
+                    <% end %>
+                <% else %>
+                    No Pending Request.
                 <% end %>
         </section>
-    </section>
-</main>
+
+        <section class="tab-content">
+            <% @user.not_friends.sample(10).each do |user| %>
+                    <section class="ui basic segment">
+                        <span class="ui header">
+                        <%= link_to user.name, user_path(user) %>
+                    </span>
+                        <div class="ui basic segment">
+                            <%= form_tag ({controller: 'friends', action: 'create', method: 'post', id: user.id}) do %>
+                                <input class="ui basic button" type=submit value='Add Friend'>
+                            <% end %>
+                        </div>
+                    </section>
+            <% end %>
+        </section>
+    </div>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

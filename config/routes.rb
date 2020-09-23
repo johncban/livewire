@@ -7,12 +7,11 @@ Rails.application.routes.draw do
     root 'user_dashboard#index', as: :authenticated_root
   end
 
-
-=begin
-  scope "users/:id" do
-    resources :posts 
+  devise_scope :user do
+    get '/users', to: 'devise/registrations#new'
+    get '/users/password', to: 'devise/passwords#new'
   end
-=end
+
 
   resources :users, only: [:show, :edit, :update] do 
     post :'/users/:id/follow', to: 'users#follow', as: 'follow_user'
@@ -37,6 +36,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'main#main'
+
 
   mount Localtower::Engine, at: 'localtower' if Rails.env.development? && defined?(Localtower)
 end

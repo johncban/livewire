@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @posts = Post.all
+    redirect_to new_user_registration
   end
 
   def show
