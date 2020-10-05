@@ -1,16 +1,32 @@
 <% if @post.user %>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <%= @post.user.name %>'s
+      </h1>
+      <h2 class="subtitle">
+        post
+      </h2>
+    </div>
+  </div>
+</section>
+<br>
   <div id="post-<%= @post.id %>" class="post">
-    <div class="row">
-      <div class="col-lg-6 col-lg-offset-3 well">
-        <span class="text"><%= @post.post_content_html %></span>
+    <div class="columns is-centered">
+      <div class="column is-3 post-shadow has-text-centered">
+       <%= @post.post_content_html %>
       </div>
     </div>
     <% if @post.user_id == current_user.id %>
-     <%= link_to 'Destroy', user_post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <div class="columns is-centered">
+        <div class="column is-1">
+          <%= link_to 'Destroy', user_post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: "has-text-danger"%>
+        </div>
+      </div>
     <% end %>
     <div>
       <div>
-        
         <hr>
         <div class="comments">
           <%= render partial: "comments/template", locals: {commentable: @post, new_comment: @new_comment} %>
@@ -19,3 +35,5 @@
     </div>
   </div>
 <% end %>
+<br>
+<%= render "layouts/footer" %>

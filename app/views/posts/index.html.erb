@@ -1,20 +1,30 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
-
-<%= @posts.count == 0 ? "no" : @posts.count %> posts
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        User Posts
+      </h1>
+      <h2 class="subtitle">
+        There are currently <%= @posts.count == 0 ? "no" : @posts.count %> posts
+      </h2>
+    </div>
+  </div>
+</section>
 <br>
-<br>
-<table>
-  <thead>
-
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <%= render 'index_fields', post: post %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="task-container columns is-multiline">
+  <div class="card column is-half is-offset-one-quarter">
+    <table class="post-shadow posts-padding">
+      <thead>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <%= render 'index_fields', post: post %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= render "layouts/footer" %>
 

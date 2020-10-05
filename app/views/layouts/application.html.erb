@@ -8,121 +8,24 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Livewire" %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application' %>
-
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
-
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
-    
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-
     <link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/lux/bulmaswatch.min.css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
   </head>
-
   <body>
-
-    <section class="section">
+    <section class="container">
       <% if user_signed_in? %>
         <%= render "shared/navigation" %>
       <% end %>
-
-
       <%= render "shared/flash" %>
-
-      <!--
-      <p class="notice"><%#= notice %></p>
-      <p class="alert"><%#= alert %></p>
-      -->
-
       <%= yield %>
-    </section>
-
-
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-
-        // Get all "navbar-burger" elements
-        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-
-          // Add a click event on each of them
-          $navbarBurgers.forEach(function ($el) {
-            $el.addEventListener('click', function () {
-
-              // Get the target from the "data-target" attribute
-              var target = $el.dataset.target;
-              var $target = document.getElementById(target);
-
-              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-              $el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-
-            });
-          });
-        }
-
-      });
-
-
-
-      document.addEventListener('DOMContentLoaded', () => {
-        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-          $notification = $delete.parentNode;
-
-          $delete.addEventListener('click', () => {
-            $notification.parentNode.removeChild($notification);
-          });
-        });
-      });
-
-
-
-      let tabsWithContent = (function () {
-      let tabs = document.querySelectorAll('.tabs li');
-      let tabsContent = document.querySelectorAll('.tab-content');
-
-      let deactvateAllTabs = function () {
-        tabs.forEach(function (tab) {
-          tab.classList.remove('is-active');
-        });
-      };
-
-      let hideTabsContent = function () {
-        tabsContent.forEach(function (tabContent) {
-          tabContent.classList.remove('is-active');
-        });
-      };
-
-      let activateTabsContent = function (tab) {
-        tabsContent[getIndex(tab)].classList.add('is-active');
-      };
-
-      let getIndex = function (el) {
-        return [...el.parentElement.children].indexOf(el);
-      };
-
-      tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () {
-          deactvateAllTabs();
-          hideTabsContent();
-          tab.classList.add('is-active');
-          activateTabsContent(tab);
-        });
-      })
-
-      tabs[0].click();
-    })();
-
-      
-    </script>
-
-
+      <%= javascript_pack_tag 'custom_bulma' %>
+    </section>     
   </body>
 </html>

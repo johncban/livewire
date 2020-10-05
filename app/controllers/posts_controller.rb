@@ -6,17 +6,9 @@ class PostsController < ApplicationController
 
   def index
     if params[:user_id] == current_user.id
-      @posts = User.find(params[:id]).posts 
-    else 
+      @posts = User.find(params[:id]).posts
+    else
       @posts = Post.published
-=begin
-      @posts = if params[:user_id]
-                #Post.find(params[:user_id])
-                Post.all
-              else
-                Post.published
-              end
-=end
     end
   end
 
@@ -35,6 +27,8 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     @post.user_id = current_user.id
+    #binding.pry
+    
   end
 
   def create
@@ -42,7 +36,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to user_posts_path, notice: 'Post was successfully created.' }
       else
         format.html { render :new }
       end
@@ -72,6 +66,7 @@ class PostsController < ApplicationController
       redirect_to :posts, error: 'Not Authorized!'
     end
   end
+
 
 
   def render_404

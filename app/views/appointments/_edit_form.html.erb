@@ -1,58 +1,54 @@
-  <% if @appointment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
-      <ul>
-        <% @appointment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-  <div class="field">
-    <label class="label">Appointment</label>
-      <div class="control">
-        <%= form.text_field :appt_name, class: 'input', placeholder: "Appt Name" %>
+<section class="apt-shadow">
+<% if @appointment.errors.any? %>
+  <div id="error_explanation">
+      <div class="notification is-warning">
+        <button class="delete"></button>
+        <h2><%= pluralize(@appointment.errors.count, "error") %> Prohibited this appointment from being saved:</h2>
+        <ul>
+          <% @appointment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
   </div>
-
-  <div class="field">
-    <label class="label">Description</label>
-      <div class="control">
-        <%= form.text_area :appt_description, class: "textarea", placeholder: "Appt Description" %>
-      </div>
+<% end %>
+<br>
+<div class="field">
+  <label class="label">Appointment</label>
+  <div class="control">
+    <%= form.text_field :appt_name, class: 'input', placeholder: "Appt Name" %>
   </div>
-
-  <div class="field">
-    <label class="label">Appointment Date</label>
-    <%= form.datetime_select :appt_date, class: "select" %>
+</div>
+<div class="field">
+  <label class="label">Description</label>
+  <div class="control">
+    <%= form.text_area :appt_description, class: "textarea", placeholder: "Appt Description" %>
   </div>
-
-  <%= form.fields_for :locations do |loc| %>
-    <div class="field">
+</div>
+<div class="field">
+  <label class="label">Appointment Date</label>
+  <%= form.datetime_select :appt_date, class: "select" %>
+</div>
+<%= form.fields_for :locations do |loc| %>
+  <div class="field">
     <label class="label">Appointment Address</label>
-      <div class="control">
-        <%= loc.text_field :appt_address, class: 'input', placeholder: "Appt Address" %>
-      </div>
+    <div class="control">
+      <%= loc.text_field :appt_address, class: 'input', placeholder: "Appt Address" %>
     </div>
-
-    <div class="field">
-      <label class="label">Appointment City</label>
-        <div class="control">
-          <%= loc.text_field :appt_city, class: 'input', placeholder: "Appt City" %>
-        </div>
-    </div>
-
-    <div class="field">
-      <label class="label">State</label>
-      <%= loc.collection_select :appt_state, State.all, :statename, :statename, include_blank: true %>
-    </div>
-  <% end %>
-  
-  
-
-  <div class="actions">
-    <%= form.submit 'Save', :class => 'button is-primary is-light' %>
   </div>
-
+  <div class="field">
+    <label class="label">Appointment City</label>
+    <div class="control">
+      <%= loc.text_field :appt_city, class: 'input', placeholder: "Appt City" %>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">State</label>
+    <%= loc.collection_select :appt_state, State.all, :statename, :statename, include_blank: true %>
+  </div>
+<% end %>
+<hr>
+<div class="actions">
+  <%= form.submit 'Save Edited Appointment', :class => 'button is-primary is-outlined' %>
+</div>
+</section>

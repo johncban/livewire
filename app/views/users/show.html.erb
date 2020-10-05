@@ -38,7 +38,7 @@
                     <div class="column is-narrow">
                         <div class="ui basic segment">
                           <a class="ui tiny basic positive button" href="/users/edit">Edit Profile</a>
-                          <%= link_to "Delete Your Account", user_registration_path(anchor: 'resource_name'), class: "ui tiny basic positive button", method: :delete %>
+                          <%= link_to "Delete Your Account", user_registration_path(anchor: 'resource_name'), class: "ui tiny basic positive button", data: { confirm: "Are you sure?" }, method: :delete, class: "button is-danger" %>
                         </div>
                     </div>
                 </div>

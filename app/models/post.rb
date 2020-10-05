@@ -13,7 +13,7 @@ class Post < ApplicationRecord
   auto_html_for :post_content do
     html_escape
     image
-    youtube(width: 400, height: 250, autoplay: false)
+    youtube(width: 260, height: 250, autoplay: false)
     link target: '_blank', rel: 'nofollow'
     #simple_format
   end

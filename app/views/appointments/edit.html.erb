@@ -1,15 +1,23 @@
-<h1>Editing Appointment</h1>
-<p>Find me in app/views/appointments/edit.html.erb</p>
-
-<% if user_signed_in? && current_user.id == @appointment.user_id %>
-    <%= form_for @appointment, url: user_appointment_path(@appointment), html: { method: :patch } do |form| %>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Edit Appointment
+      </h1>
+    </div>
+  </div>
+</section>
+<br>
+  <%= form_for @appointment, url: user_appointment_path(@appointment), html: { method: :patch } do |form| %>
+    <% if current_user.id != @appointment.user_id %>
+      <% controller.redirect_to :user_appointments, error: "Not Authorized!" %>
+    <% else %>
         <%= render 'edit_form', form: form %>
     <% end %>
-<% else %>
-    <% controller.redirect_to :user_appointments, error: "Not Authorized!" %>
-<% end %>
-
+  <% end %>
+<br>
 <%= link_to 'Show', user_appointment_path(@appointment) %> |
-<%= link_to 'Back', user_appointments_path %>
-
+<%= link_to 'Back', user_appointments_path, method: :get %>
+<hr>
+<%= render "layouts/footer" %>
 

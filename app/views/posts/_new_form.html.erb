@@ -1,21 +1,31 @@
-<%= form_for @post do |fr| %>
+<%= form_for [@user, @post], url: user_posts_path do |fr| %>
     <% if @post.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@post.errors.count, "error") %> Prohibited post from saving:</h2>
-          <ul>
-            <% @post.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
+          <div class="notification is-warning">
+          <button class="delete"></button>
+            <h2><%= pluralize(@post.errors.count, "error") %> Prohibited post from saving:</h2>
+            <ul>
+              <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       <% end %>
-
+      <br>
       <div class="field form-group">
-        <%= fr.label :post_content %><br />
-        <%= fr.text_area :post_content, class: 'form-control' %><br />
-        <%= fr.check_box :published %>
+      <label class="label">Your Post</label>
+      <hr>
+      <div class="control">
+         <%= fr.text_area :post_content, class: 'form-control' %>
       </div>
+        <label class="checkbox">
+          <%= fr.check_box :published %>
+          Publish for Public Post
+        </label>
+      </div>
+      <hr>
       <div class="actions form-group">
-        <%= fr.submit %>
+        <%= fr.submit 'Create Post', :class => 'button is-primary' %>
       </div>
 <% end %>

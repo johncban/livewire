@@ -1,37 +1,43 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_appointment, only: %i[show edit update destroy]
+  
 
   def index
-    @appointments = Appointment.all
+    if current_user.id == user_id_num
+      @appointments = User.find(user_id_num).appointments
+    else
+      flash[:error] = "UNAUTHORIZED ACCESS: Other User's Appointment is Private."
+      redirect_to root_path
+    end
   end
+  
 
   def show
-    # if @appointment.user_id == current_user.id
+    find_appointment
     if @appointment.user_id == current_user.id
-       @appointment = Appointment.find(params[:id])
        address_results = Geocoder.search([@appointment.locations.first.latitude, @appointment.locations.first.longitude])
-       @full_address = address_results.first.county
-       
+       @county = address_results.first.county
+       @state = @appointment.locations.first.appt_state
+       if @county == nil
+        flash[:warning] = "Covid 19 Data at #{@state} Boroughs Are Not Available!"
+       else
+        covidCountyData
+       end
     else
-      redirect_to root_path
+      flash[:error] = "Record Access is Restricted."
+      redirect_to user_appointments_path
     end
   end
 
   def new
-    @user = User.find_by(params[:id])
+    find_by_appointment
     @appointment = Appointment.new
     @appointment.user_id = current_user.id
     @appointment.locations.build
   end
 
-  def edit
-    @appointment = Appointment.find(params[:id])
-    @appointment.user_id = current_user.id
-  end
-
   def create
-    # @appointment = Appointment.new(appointment_params)
     @appointment = current_user.appointments.new(appointment_params)
     @appointment.locations.first.user_id = current_user.id
     @appointment.user_id = current_user.id
@@ -44,32 +50,76 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def edit
+    find_appointment
+  end
+
   def update
-    @appointment = Appointment.find(params[:id])
-    @appointment.user_id = current_user.id
-    respond_to do |format|
-      if @appointment.update(appointment_params)
-        format.html { redirect_to :user_appointments, notice: 'Appointment was successfully updated.' }
-        # use redirect_to dashboard or post path
-      else
-        format.html { render :edit }
-      end
+    find_appointment
+    if @appointment.update(appointment_params)
+      redirect_to user_appointments_path(current_user), notice: 'Appointment was successfully updated.'
+    else
+      render 'edit'
     end
+    
   end
 
   def destroy
-    # @appointment.user_id = current_user.id
-    @appointment = Appointment.find(params[:id])
+    find_by_appointment
     @appointment.destroy
     respond_to do |format|
-      format.html { redirect_to appointments_url, notice: 'Appointment was successfully destroyed.' }
+      format.html { redirect_to user_appointments_path, notice: 'Appointment was successfully destroyed.' }
     end
   end
 
+  def covidCountyData
+    url = URI("https://covid19-us-api.herokuapp.com/county")
+
+    https = Net::HTTP.new(url.host, url.port);
+    https.use_ssl = true
+
+    request = Net::HTTP::Post.new(url)
+    request.body = "{\n    \"state\": \"#{@state}\",\n    \"county\": \"#{@county.gsub('County', "").strip}\"\n}"
+
+    response = https.request(request)
+
+    c19raw = response.read_body
+    cd19 = JSON.parse(c19raw)
+
+    @confirmed_case = cd19["message"][0]["confirmed"]
+    @new_case = cd19["message"][0]["new"]
+    @death = cd19["message"][0]["death"]
+    @new_death = cd19["message"][0]["new_death"]
+    @fatality = cd19["message"][0]["fatality_rate"]
+    @last_update = cd19["message"][0]["last_update"]
+  end
+
+
+
   private
 
+  def find_by_appointment
+    @user = User.find_by(params[:user_id])
+  end
+
+  def find_appointment
+    @appointment = Appointment.find(id_num)
+  end
+
+  def user_id_num
+    params[:user_id].to_i
+  end
+
+  def id_num
+    params[:id].to_i
+  end
+
   def set_appointment
-    @appointment = Appointment.find(params[:id])
+    @appointment = Appointment.find_by_id(id_num)
+    if @appointment.nil?
+      flash[:error] = "The Appointment You Search Do Not Exist from the Database"
+      redirect_to user_appointments_path
+    end
   end
 
   def appointment_params

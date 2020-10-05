@@ -43,6 +43,7 @@ gem 'routes_coverage', groups: [:test]
 gem 'sassc-rails'
 gem 'omniauth-google-oauth2'
 gem 'activerecord-session_store'
+gem 'pry'
 
 
 group :development, :test do

@@ -1,4 +1,19 @@
-<h1>Posts#create</h1>
-<p>Find me in app/views/posts/create.html.erb</p>
-
-<%= render 'new_form' %>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        POST YOUR IDEAS
+      </h1>
+    </div>
+  </div>
+</section>
+<br>
+  <section class="post-shadow">
+  <div class="task-container columns is-multiline">
+      <div class="card column is-half is-offset-one-quarter">
+        <%= render 'new_form' %>
+      </div>
+  </div>
+  </section>
+<br>
+<%= render "layouts/footer" %>

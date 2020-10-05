@@ -1,4 +1,4 @@
-<section class="hero is-medium is-light is-bold">
+<section class="hero is-medium is-light is-bold hero-bkg-glass">
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
@@ -26,34 +26,34 @@
     </div>
   </div>
 </section>
+
 <br>
+
 <div class="tile is-ancestor">
   <div class="tile is-vertical is-8">
     <div class="tile">
       <div class="tile is-parent is-vertical">
-        <article class="tile is-child notification is-primary">
+        <article class="tile is-child notification is-primary shadow">
           <h1 class="title">Number of Appointments</h1>
-          <p class="subtitle"><%= @appointment.count %></p>
+          <p class="subtitle is-size-1"><%= @appointment.count %></p>
         </article>
-        <article class="tile is-child notification is-warning">
+        <article class="tile is-child notification is-dark shadow">
           <p class="title">Number of Registered Users</p>
-          <p class="subtitle"><%= @user.count %></p>
+          <p class="subtitle is-size-1"><%= @user.count %></p>
         </article>
       </div>
+
       <div class="tile is-parent">
-        <article class="tile is-child notification is-info">
-          <p class="title"><%= @news_count%> News Feed</p>
-          <!--
-          <p class="subtitle">With an image</p>
-          <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/640x480.png">
-          </figure>
-          -->
-         <div class="scroll-content shadow">
+        <article class="tile is-child notification is-black shadow">
+          <p class="title">News Feed</p>
+          <p class="subtitle">
+            There are <%= @news_count%>  Articles Available
+          </p>
+         <div class="scroll-content scrollbar-invisible block">
             <% @data["articles"].each do |articles| %>
               <ul>
                         <li>
-                            <a href="<%= articles['url'] %>" target="_blank" rel="noopener noreferrer">
+                            <a href="<%= articles['url'] %>" target="_blank" rel="noopener noreferrer" class="no-underline">
                               <!-- https://www.thesitewizard.com/html-tutorial/open-links-in-new-window-or-tab.shtml -->
                               <h2>
                                   <%= articles['title'] %>
@@ -74,24 +74,25 @@
       </div>
     </div>
     <div class="tile is-parent">
-      <article class="tile is-child notification is-danger">
+      <article class="tile is-child notification is-black shadow">
         <p class="title">Wide tile</p>
         <p class="subtitle">Aligned with the right tile</p>
         <div class="content">
           <!-- Content -->
-
+            TEST
         </div>
       </article>
     </div>
   </div>
+  
   <div class="tile is-parent">
-    <article class="tile is-child notification is-success">
-      <div class="content">
+    <article class="tile is-child notification is-primary shadow">
+      <div class="content column is-centered">
         <p class="title">Posts</p>
         <p class="subtitle">
-          There are <%= @post.count %> Posts
+          There are <%= current_user.posts.count %> Posts
         </p>
-        <div class="scroll-content column shadow">
+        <div class="scroll-content scrollbar-invisible column has-text-centered is-14">
           <!-- Content -->  
           <% @post.each do |post| %>
             <%#= post.post_content_html %>
@@ -113,3 +114,6 @@
     </article>
   </div>
 </div>
+<br>
+<%= render "layouts/footer" %>
+

@@ -11,29 +11,29 @@
   </div>
 </section>
 <br>
-<p id="notice"><%= notice %></p>
-
-<div class="table-container">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Appointment</th>
-      <th>Description</th>
-      <th>Appointment Date</th>
-      <th>Appointment Address</th>
-      <th>City</th>
-      <th>State</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <% current_user.appointments.each do |appointment| %>
-      <%= render 'index_fields', appointment: appointment %>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to '<button class="button is-primary is-outlined">New Appointment</button>'.html_safe, new_user_appointment_path %>
+<div class="table-container columns is-centered">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Appointment</th>
+        <th>Description</th>
+        <th>Appointment Date</th>
+        <th>Appointment Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.appointments.each do |appointment| %>
+        <%= render 'index_fields', appointment: appointment %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-
-
+<hr>
+  <div class="columns is-centered">
+    <%= link_to '<button class="button is-primary is-outlined">New Appointment</button>'.html_safe, new_user_appointment_path %>
+  </div>
+<hr>
+<%= render "layouts/footer" %>

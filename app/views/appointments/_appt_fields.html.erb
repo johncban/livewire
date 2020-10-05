@@ -1,39 +1,25 @@
 <p>
-  <strong>Appt name:</strong>
+  <strong>Appointment</strong>
   <%= @appointment.appt_name %>
 </p>
 
 <p>
-  <strong>Appt description:</strong>
+  <strong>Appointment Details</strong>
+  <br>
   <%= @appointment.appt_description %>
 </p>
 
 <p>
-  <strong>Appt date:</strong>
+  <strong>Appointment Date</strong>
   <%= @appointment.appt_date %>
 </p>
 
 <p>
-  <strong>Appt address:</strong>
-  <%= @appointment.locations.first.appt_address %>
+  <strong>Appointment Address</strong>
+  <%= @appointment.locations.first.appt_address %>, <%= @appointment.locations.first.appt_city %>, <%= @appointment.locations.first.appt_state %>
 </p>
 
 <p>
-  <strong>Appt city:</strong>
-  <%= @appointment.locations.first.appt_city %>
-</p>
-
-<p>
-  <strong>Appt state:</strong>
-  <%= @appointment.locations.first.appt_state %>
-</p>
-
-<p>
-  <strong>Coordinates:</strong>
-  <%= @appointment.locations.first.latitude %>, <%= @appointment.locations.first.longitude %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @full_address %>
+  <strong>County (Borough)</strong>
+  <%= @county %>
 </p>

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks'}
 
-  # mount Commontator::Engine => '/commontator'
 
   authenticated :user do
     root 'user_dashboard#index', as: :authenticated_root
@@ -16,17 +15,16 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update] do 
     post :'/users/:id/follow', to: 'users#follow', as: 'follow_user'
     post :'/users/:id/unfollow', to: 'users#unfollow', as: 'unfollow_user'
+    post :'/button', to: 'posts#test_a_button', as: 'button'
     resources :posts
     resources :appointments
   end
 
 
-  
-  resources :posts, only: [:index]
+  resources :appointments, only: [:show]
+  #resources :posts, only: [:index]
   resources :comments
-  
   resources :friends, only: %i[index create]
-  
 
   post '/friends/add' => 'friends/add'
   post '/friends/reject' => 'friends/reject'
