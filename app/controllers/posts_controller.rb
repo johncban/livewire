@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: %i[create show edit update destroy]
+  before_action :set_by_post, only: %i[create show edit update destroy]
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    find_post
     @src = URI.extract(@post.post_content)[0]
     @new_comment = Comment.build_from(@post, current_user.id, '')
 
@@ -26,9 +26,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.user_id = current_user.id
-    #binding.pry
-    
   end
 
   def create
@@ -44,11 +41,11 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+    find_post
   end
 
   def update
-    @post = Post.find(params[:id])
+    find_post
     if @post.user_id == current_user.id
       @post.update(post_params)
       redirect_to :user_posts, info: 'Post Updated'
@@ -58,12 +55,12 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    find_post
     if @post.user_id == current_user.id
       @post.destroy
-      redirect_to :posts, info: 'Post Deleted'
+      redirect_to :user_posts, info: 'Post Deleted'
     else
-      redirect_to :posts, error: 'Not Authorized!'
+      redirect_to :user_posts, error: 'Not Authorized!'
     end
   end
 
@@ -75,10 +72,12 @@ class PostsController < ApplicationController
 
   private
 
-  def set_post
-    # @post = Post.find(params[:id])
+  def find_post
+    @post = Post.find(params[:id])
+  end
+
+  def set_by_post
     @post = Post.find_by(params[:id])
-    # render_404 and return unless @post && User.find_by(id: @post.user_id)
   end
 
   def post_params

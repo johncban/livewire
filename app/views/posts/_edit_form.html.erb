@@ -1,19 +1,38 @@
-<% if @post.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@post.errors.count, "error") %> -- </h2>
-          <ul>
-            <% @post.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
+<% if user_signed_in? && current_user.id == @post.user_id %>
+  <%#= form_for @post, url: user_post_path(@post), html: { method: :put } do |fr| %>
+  <%= form_for [@user, @post], url: user_post_path do |fr| %>
+      <% if @post.errors.any? %>
+            <div id="error_explanation">
+              <div class="notification is-warning">
+              <button class="delete"></button>
+                <h2><%= pluralize(@post.errors.count, "error") %> Prohibited post from saving:</h2>
+                <ul>
+                  <% @post.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+      <% end %>
+      <br>
+      <div class="field form-group">
+      <label class="label">Your Post</label>
+      <hr>
+      <div class="control">
+         <%= fr.text_area :post_content, class: 'form-control' %>
+      </div>
+        <label class="checkbox">
+          <%= fr.check_box :published %>
+          Publish for Public Post
+        </label>
+      </div>
+      <hr>
+      <div class="actions form-group">
+        <%= fr.submit 'Save Edited Post', :class => 'button is-primary' %>
+      </div>
+  <% end %>
+<% else %>
+    <% controller.redirect_to :user_posts, error: "Not Authorized!" %>
 <% end %>
 
-<div class="field form-group">
-        <%= fr.label :post_content %><br />
-        <%= fr.text_area :post_content, class: 'form-control' %><br />
-        <%= fr.check_box :published %>
-      </div>
-      <div class="actions form-group">
-        <%= fr.submit %>
-</div>
+
