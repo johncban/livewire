@@ -16,16 +16,15 @@
         <hr>
         <nav class="level is-mobile">
             <div class="level-left">
-              <%= form_for @new_comment do |f| %>  <%#= form_for @new_comment do |f| %>
+              <%= form_for @new_comment do |f| %>
                 <%= f.hidden_field :commentable_id, value: @new_comment.commentable_id %>
                 <%= f.hidden_field :commentable_type, value: @new_comment.commentable_type %>
                 <%= f.hidden_field :comment_id, value: comment.id %>
-                <div class="field form-group">
-                  <%= f.text_area :body, class: 'form-control' %>
-                </div>
-                <div class="field form-group">
-                  <%= submit_tag "Post Reply", class: 'button btn btn-primary' %>
-                </div>
+                <%= f.text_area :body, class: 'textarea is-primary' %>
+                <br>
+                <%= button_tag(type: "submit", class: "button is-primary is-outlined is-rounded") do %>
+                    Reply &nbsp; <i class="fas fa-reply"></i>
+                <% end %>
               <% end %>
             </div>
         </nav>

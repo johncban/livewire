@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks'}
-
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   authenticated :user do
     root 'user_dashboard#index', as: :authenticated_root
@@ -11,8 +10,7 @@ Rails.application.routes.draw do
     get '/users/password', to: 'devise/passwords#new'
   end
 
-
-  resources :users, only: [:show, :edit, :update] do 
+  resources :users, only: %i[show edit update] do
     post :'/users/:id/follow', to: 'users#follow', as: 'follow_user'
     post :'/users/:id/unfollow', to: 'users#unfollow', as: 'unfollow_user'
     post :'/button', to: 'posts#test_a_button', as: 'button'
@@ -20,9 +18,7 @@ Rails.application.routes.draw do
     resources :appointments
   end
 
-
   resources :appointments, only: [:show]
-  #resources :posts, only: [:index]
   resources :comments
   resources :friends, only: %i[index create]
 
@@ -35,6 +31,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'main#main'
 
+
+  match '*path', :to => 'application#routing_error', :via => [:get, :post]
 
   mount Localtower::Engine, at: 'localtower' if Rails.env.development? && defined?(Localtower)
 end

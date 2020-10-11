@@ -7,20 +7,16 @@ class CommentsController < ApplicationController
 
     if @comment.save
       make_child_comment
-      # format.html  { redirect_to(:back, :notice => 'Comment was successfully added.') }
       redirect_back(fallback_location: root_path)
       flash[:notice] = 'Comment Created'
-      # add notification here
     end
   end
 
   def destroy
     @comment = @commentable.comments.find(params[:id])
     @comment.destroy
-    #         @comment = current_user.comments.find(params[:id])
-    #         @comment_id = params[:id]
-    #         @comment.destroy
   end
+  
 
   private
 

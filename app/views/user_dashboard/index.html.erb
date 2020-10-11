@@ -6,8 +6,8 @@
       </h1>
         <div class="shadow user-name-bkg-glass">
           <h2 class="title user-name-margin">
-            <a href="/users/<%= current_user.id %>">
-              <%= current_user.name %>
+            <a href="/users/<%= dashboard_id %>">
+              <%= dashboard_name %>
             </a>
           </h2>
         </div>
@@ -16,9 +16,9 @@
          <div class="columns is-mobile is-multiline">
                   <div class="column is-narrow">
                         <p class="bd-notification is-primary">
-                            <%= current_user.name %> follow <%= current_user.followees.count %> users.
+                            <%= dashboard_name %> follow <%= followees_count %> users.
                             <br>
-                            <%= current_user.name %> have <%= current_user.followers.count %> followers.
+                            <%= dashboard_name %> have <%= followers_count %> followers.
                         </p>
                   </div>
           </div>
@@ -35,7 +35,7 @@
       <div class="tile is-parent is-vertical">
         <article class="tile is-child notification is-primary shadow">
           <h1 class="title">Number of Appointments</h1>
-          <p class="subtitle is-size-1"><%= @appointment.count %></p>
+          <p class="subtitle is-size-1"><%= appointment_count %></p>
         </article>
         <article class="tile is-child notification is-dark shadow">
           <p class="title">Number of Registered Users</p>
@@ -49,7 +49,7 @@
           <p class="subtitle">
             There are <%= @news_count%>  Articles Available
           </p>
-         <div class="scroll-content scrollbar-invisible block">
+         <div class="news-scroll-content block">
             <% @data["articles"].each do |articles| %>
               <ul>
                         <li>
@@ -76,11 +76,9 @@
     <div class="tile is-parent">
       <article class="tile is-child notification is-black shadow">
         <p class="title">Your Location</p>
-        <p class="subtitle">Information</p>
-        <div class="content">
-          <div id="ip"></div>
-          <div id="address"></div>
-        </div>
+        <p class="subtitle">
+          <%= @ipdata['city'] %>, <%= @ipdata['region_code'] %> Temperature is <%= @current_w['main']['temp'] %> &deg;F but Feel's Like <%= @current_w['main']['feels_like'] %> &deg;F
+        </p>
       </article>
     </div>
   </div>
@@ -90,31 +88,21 @@
       <div class="content column is-centered">
         <p class="title">Posts</p>
         <p class="subtitle">
-          There are <%= current_user.posts.count %> Posts
+          There are <%= current_user.posts.count %> Posts | 
+          <%= link_to '<i class="fas fa-file-alt"></i> Create New Post'.html_safe, new_user_post_path(@user, @post) %>
         </p>
-        <div class="scroll-content scrollbar-invisible column has-text-centered is-14">
-          <!-- Content -->  
-          <% @post.each do |post| %>
-            <%#= post.post_content_html %>
-            <% if current_user.id == post.user_id %>
-                  <%= post.post_content_html %>
-                  <small>
-                    <%= post.created_at %>
-                  </small>
-                  <br>
-                    <%= link_to 'Show', user_post_path(current_user.id, post) %> | 
-                    <%= link_to 'Edit', edit_user_post_path(current_user.id, post) %> | 
-                    <%= link_to 'Destroy', user_post_path(current_user.id, post), method: :delete, data: { confirm: 'Are you sure?' } %>
-                  <br>
-                  <br>
-            <% end %>
-          <% end %>
+        <div class="posts-scroll-content column has-text-centered is-14">
+          <!-- Content --> 
+         
+             <%= render "posts"%>
+
         </div>
       </div>
     </article>
   </div>
+  
 </div>
-<br>
+
 <%= render "layouts/footer" %>
 
 

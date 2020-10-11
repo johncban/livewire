@@ -1,6 +1,6 @@
 <%= form_for [@user, @post], url: user_posts_path do |fr| %>
     <% if @post.errors.any? %>
-        <div id="error_explanation">
+        <div id="error_explanation" class="field_with_errors">
           <div class="notification is-warning">
           <button class="delete"></button>
             <h2><%= pluralize(@post.errors.count, "error") %> Prohibited post from saving:</h2>
@@ -17,7 +17,7 @@
       <label class="label">Your Post</label>
       <hr>
       <div class="control">
-         <%= fr.text_area :post_content, class: 'form-control' %>
+         <%= fr.text_area :post_content, class: 'textarea' %>
       </div>
         <label class="checkbox">
           <%= fr.check_box :published %>

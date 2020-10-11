@@ -1,9 +1,0 @@
-class Portfolio < ApplicationRecord
-  belongs_to :user
-  #has_and_belongs_to_many :user
-
-  validates_presence_of :portfolio_name
-
-  has_many :stocks, dependent: :destroy
-  has_many :posts, dependent: :destroy
-end

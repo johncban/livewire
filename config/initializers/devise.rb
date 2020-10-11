@@ -23,7 +23,7 @@ Devise.setup do |config|
   # ==> Omniauth
   # Gmail or Google
   config.omniauth :google_oauth2, Rails.application.credentials.dig(:google, :google_client_id),
-  Rails.application.credentials.dig(:google, :google_client_secret), scope: 'userinfo.email,userinfo.profile'
+                  Rails.application.credentials.dig(:google, :google_client_secret), scope: 'userinfo.email,userinfo.profile'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -272,7 +272,7 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
-  #config.sign_out_via = :get
+  # config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting

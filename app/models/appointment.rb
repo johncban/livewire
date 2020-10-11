@@ -11,5 +11,4 @@ class Appointment < ApplicationRecord
   def add_user(user)
     users.push(user)
   end
-
 end

@@ -1,0 +1,22 @@
+ <% @post.each do |post| %>
+            <%#= post.post_content_html %>
+            <% if current_user.id == post.user_id %>     
+     
+     <% if post.post_content =~ URI::regexp  %>
+                    <% object = LinkThumbnailer.generate(post.post_content) %>
+                    <strong><%= object.title %></strong>
+                    <%= post.post_content_html %>
+                  <% else %>
+                    <%= post.post_content_html %>
+                  <% end %>
+                  <small>
+                    <%= post.created_at %>
+                  </small>
+                  <br>
+                    <%= link_to 'Show', user_post_path(current_user.id, post) %> | 
+                    <%= link_to 'Edit', edit_user_post_path(current_user.id, post) %> | 
+                    <%= link_to 'Destroy', user_post_path(current_user.id, post), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <br>
+            <% end %>
+            <hr>
+          <% end %>

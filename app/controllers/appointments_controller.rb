@@ -1,7 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_appointment, only: %i[show edit update destroy]
-  
 
   def index
     if current_user.id == user_id_num
@@ -11,21 +10,20 @@ class AppointmentsController < ApplicationController
       redirect_to root_path
     end
   end
-  
 
   def show
     find_appointment
     if @appointment.user_id == current_user.id
-       address_results = Geocoder.search([@appointment.locations.first.latitude, @appointment.locations.first.longitude])
-       @county = address_results.first.county
-       @state = @appointment.locations.first.appt_state
-       if @county == nil
+      address_results = Geocoder.search([@appointment.locations.first.latitude, @appointment.locations.first.longitude])
+      @county = address_results.first.county
+      @state = @appointment.locations.first.appt_state
+      if @county.nil?
         flash[:warning] = "Covid 19 Data at #{@state} Boroughs Are Not Available!"
-       else
+      else
         covidCountyData
-       end
+      end
     else
-      flash[:error] = "Record Access is Restricted."
+      flash[:error] = 'Record Access is Restricted.'
       redirect_to user_appointments_path
     end
   end
@@ -61,7 +59,6 @@ class AppointmentsController < ApplicationController
     else
       render 'edit'
     end
-    
   end
 
   def destroy
@@ -73,28 +70,28 @@ class AppointmentsController < ApplicationController
   end
 
   def covidCountyData
-    url = URI("https://covid19-us-api.herokuapp.com/county")
+    url = URI('https://covid19-us-api.herokuapp.com/county')
 
-    https = Net::HTTP.new(url.host, url.port);
+    https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
 
     request = Net::HTTP::Post.new(url)
-    request.body = "{\n    \"state\": \"#{@state}\",\n    \"county\": \"#{@county.gsub('County', "").strip}\"\n}"
+    request.body = "{\n    \"state\": \"#{@state}\",\n    \"county\": \"#{@county.gsub('County', '').strip}\"\n}"
 
     response = https.request(request)
 
     c19raw = response.read_body
     cd19 = JSON.parse(c19raw)
 
-    @confirmed_case = cd19["message"][0]["confirmed"]
-    @new_case = cd19["message"][0]["new"]
-    @death = cd19["message"][0]["death"]
-    @new_death = cd19["message"][0]["new_death"]
-    @fatality = cd19["message"][0]["fatality_rate"]
-    @last_update = cd19["message"][0]["last_update"]
+    @confirmed_case = cd19['message'][0]['confirmed']
+    @new_case = cd19['message'][0]['new']
+    @death = cd19['message'][0]['death']
+    @new_death = cd19['message'][0]['new_death']
+    @fatality = cd19['message'][0]['fatality_rate']
+    @last_update = cd19['message'][0]['last_update']
+
+    p cd19
   end
-
-
 
   private
 
@@ -117,7 +114,7 @@ class AppointmentsController < ApplicationController
   def set_appointment
     @appointment = Appointment.find_by_id(id_num)
     if @appointment.nil?
-      flash[:error] = "The Appointment You Search Do Not Exist from the Database"
+      flash[:error] = 'The Appointment You Search Do Not Exist from the Database'
       redirect_to user_appointments_path
     end
   end

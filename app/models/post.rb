@@ -2,7 +2,6 @@ class Post < ApplicationRecord
   validates_presence_of :post_content
   validates_presence_of :user
 
-
   acts_as_commentable
 
   belongs_to :user
@@ -15,7 +14,6 @@ class Post < ApplicationRecord
     image
     youtube(width: 260, height: 250, autoplay: false)
     link target: '_blank', rel: 'nofollow'
-    #simple_format
   end
 
   scope :published, -> { where(published: true) }

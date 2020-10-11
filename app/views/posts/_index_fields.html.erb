@@ -1,17 +1,32 @@
-<td>
-    <h4> 
-        <strong><%= post.name %></strong> | <%= post.created_at %>
-    </h4>
-    <br>
-    <p>
-        <%= post.post_content_html %>
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+       <strong><%= post.name %></strong>
     </p>
-</td>
-<tr>
-    <td>       
-        <%= link_to 'Show', user_post_path(current_user.id, post) %> | 
-        <%= link_to 'Edit', edit_user_post_path(current_user.id, post) %> | 
-        <%= link_to 'Destroy', user_post_path(current_user.id, post), method: :delete, data: { confirm: 'Are you sure?' } %>
-        <hr>
-    </td>
-</tr>
+  </header>
+  <div class="card-content">
+    <div class="content post-shadow">
+        <div class="has-text-centered">
+        <% if post.post_content =~ URI::regexp  %>
+          <% object = LinkThumbnailer.generate(post.post_content) %>
+          <strong><%= object.title %></strong><hr>
+          <%= post.post_content_html %>
+        <% else %>
+          <%= post.post_content_html %>
+        <% end %>
+        </div>
+       <br>
+       <strong>
+       Posted at
+       </strong>
+       <time><%= post.created_at %></time>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <%= link_to 'Show', user_post_path(current_user.id, post), class: 'card-footer-item' %>
+    <%= link_to 'Edit', edit_user_post_path(current_user.id, post), class: 'has-text-info card-footer-item' %>
+    <%= link_to 'Destroy', user_post_path(current_user.id, post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'has-text-danger card-footer-item' %>
+  </footer>
+</div>
+<br>
+

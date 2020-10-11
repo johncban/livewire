@@ -1,11 +1,11 @@
-<h4>
-  There are <%= commentable.comment_threads.count == 0 ? "no" : commentable.comment_threads.count %> comments for this Post.
-</h4>
-
-<hr>
-
-<%= render partial: "comments/form", locals: {new_comment: new_comment} %>
-
+<div class="comment-shadow is-centered">
+  <h4>
+    There are <%= commentable.comment_threads.count == 0 ? "no" : commentable.comment_threads.count %> comments for this Post.
+  </h4>
+  <br>
+  <%= render partial: "comments/form", locals: {new_comment: new_comment} %>
+</div>
+<br>
 <div class="comments-container">
   <%= render partial: "comments/reply", locals: {comments: commentable.root_comments} %>
 </div>

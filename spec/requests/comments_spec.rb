@@ -1,7 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'comments', type: :request do
-
   path '/comments' do
     get(summary: 'list comments') do
       response(200, description: 'successful') do

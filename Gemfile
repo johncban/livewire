@@ -28,23 +28,25 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'activerecord-session_store'
 gem 'acts_as_commentable_with_threading'
 gem 'auto_html', '~>1.6.4'
 gem 'bulma-extensions-rails'
 gem 'bulma-rails'
 gem 'devise'
 gem 'dotenv-rails', groups: %i[development test]
-gem 'geocoder'
+gem 'geocoder', '~>1.6.3'
 gem 'has_friendship'
 gem 'jquery-rails'
 gem 'link_thumbnailer'
+gem 'omniauth-google-oauth2'
+gem 'pry'
 gem 'rdoc'
 gem 'routes_coverage', groups: [:test]
 gem 'sassc-rails'
-gem 'omniauth-google-oauth2'
-gem 'activerecord-session_store'
-gem 'pry'
-
+gem 'open-weather'
+gem 'pagy', '~> 3.5'
+gem "rubycritic", require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -67,8 +69,9 @@ group :development do
   gem 'rubocop-rails'
   gem 'rubocop-rspec' # or gem 'rubocop-minitest'
 
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
 end
 
 group :test do

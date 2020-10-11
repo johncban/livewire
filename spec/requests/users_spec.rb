@@ -1,7 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'users', type: :request do
-
   path '/users/{user_id}/users/{id}/follow' do
     # You'll want to customize the parameter types...
     parameter 'user_id', in: :path, type: :string
