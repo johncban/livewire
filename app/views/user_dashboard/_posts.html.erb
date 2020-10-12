@@ -17,6 +17,6 @@
                     <%= link_to 'Edit', edit_user_post_path(current_user.id, post) %> | 
                     <%= link_to 'Destroy', user_post_path(current_user.id, post), method: :delete, data: { confirm: 'Are you sure?' } %>
                   <br>
+                  <hr>
             <% end %>
-            <hr>
           <% end %>

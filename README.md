@@ -1,24 +1,57 @@
-# README
+# LiveWire
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Third Flatiron Project for Software Engineering Path.
+LiveWire App offers semi-social media features, such as adding friends, posting posts and commenting posts.
 
-Things you may want to cover:
+### Top Gems
+These are the top major gems that support the LiveWire features.
+1. acts_as_commentable_with_threading
+2. auto_html
+3. bulma-extensions-rails
+4. bulma-rails
+5. devise
+6. geocoder
+7. has_friendship
+8. link_thumbnailer
+9. open-weather
+10. pagy
+11. routes_coverage
+12. rubocop
+13. rubycritic
 
-* Ruby version
+## Poject Requirements
+* Ruby 2.7.1p83
+* Rails 6.0.3.4
+* SQLite version 3.31.1
 
-* System dependencies
 
-* Configuration
+## Installation
+To install and use LiveWire app, clone the app repository.
 
-* Database creation
+```bash
+git clone https://github.com/johncban/livewire.git
+cd livewire
+```
+Inside the project folder, install the gems.
+```bash
+bundle install
+```
 
-* Database initialization
+## Usage
+To use the app, while inside the project folder it will need to migrate the database for table creation then seed the users table for user values.
+```bash
+rails db:migrate
+rails db:seed
+```
+Then run the app by starting the server.
+```bash
+rails s
+```
 
-* How to run the test suite
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-* Services (job queues, cache servers, search engines, etc.)
+Please make sure to update tests as appropriate.
 
-* Deployment instructions
-
-* ...
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

@@ -31,8 +31,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'main#main'
 
-
-  match '*path', :to => 'application#routing_error', :via => [:get, :post]
+  match '*path', to: 'application#routing_error', via: %i[get post]
 
   mount Localtower::Engine, at: 'localtower' if Rails.env.development? && defined?(Localtower)
 end

@@ -9,6 +9,8 @@ class CommentsController < ApplicationController
       make_child_comment
       redirect_back(fallback_location: root_path)
       flash[:notice] = 'Comment Created'
+    else
+      flash[:error] = 'Comment Values is Empty'
     end
   end
 
@@ -16,7 +18,6 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.find(params[:id])
     @comment.destroy
   end
-  
 
   private
 

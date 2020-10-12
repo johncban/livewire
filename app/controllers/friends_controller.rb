@@ -44,10 +44,9 @@ class FriendsController < ApplicationController
     end
   end
 
-
   private
 
-  def find_by_user 
+  def find_by_user
     User.find_by(id: params[:id])
   end
 

@@ -89,8 +89,6 @@ class AppointmentsController < ApplicationController
     @new_death = cd19['message'][0]['new_death']
     @fatality = cd19['message'][0]['fatality_rate']
     @last_update = cd19['message'][0]['last_update']
-
-    p cd19
   end
 
   private

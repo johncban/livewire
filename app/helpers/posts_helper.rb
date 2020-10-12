@@ -1,3 +1,3 @@
 module PostsHelper
-    include Pagy::Frontend
+  include Pagy::Frontend
 end

@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   protect_from_forgery with: :exception
   before_action :authenticate_user!, :update_allowed_parameters, if: :devise_controller?
   add_flash_types :info, :error, :warning
@@ -22,15 +21,14 @@ class ApplicationController < ActionController::Base
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def routing_error(error = 'Routing error', status = :not_found, exception=nil)
+  def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
     redirect_to :authenticated_root, error: 'Page Not Available'
   end
 
-  def action_missing(m, *args, &block)
-    Rails.logger.error(m)
-    @err = Rails.logger.error(m)
-    redirect_to :authenticated_root, error: @err
-  end
+  #   def action_missing(m, *args, &block)
+  #     Rails.logger.error(m)
+  #     redirect_to :root
+  #   end
 
   protected
 

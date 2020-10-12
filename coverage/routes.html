@@ -341,7 +341,7 @@ tr.odd td {
       Loading...
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-09-21T03:35:47-04:00">2020-09-21T03:35:47-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-10-11T23:49:17-04:00">2020-10-11T23:49:17-04:00</abbr></div>
       <ul class="group_tabs">
         
           <li>
@@ -369,10 +369,10 @@ tr.odd td {
 
   <a name="all_routes"></a>
   <div>
-    <b>79</b> routes in total.
-    <b>79</b> relevant routes.
+    <b>83</b> routes in total.
+    <b>83</b> relevant routes.
     <span class="green"><b>0</b> covered</span> and
-    <span class="red"><b>79</b> missed </span>
+    <span class="red"><b>83</b> missed </span>
   </div>
 
   <table class="route_list">
@@ -587,6 +587,28 @@ tr.odd td {
       </tr>
       
       <tr class="uncov">
+        <td class="name">users</td>
+        <td class="verb">GET</td>
+        <td class="path">/users(.:format)</td>
+        <td class="cont">
+          
+          devise/registrations#new
+        </td>
+        <td class="hits">0</td>
+      </tr>
+      
+      <tr class="uncov">
+        <td class="name">users_password</td>
+        <td class="verb">GET</td>
+        <td class="path">/users/password(.:format)</td>
+        <td class="cont">
+          
+          devise/passwords#new
+        </td>
+        <td class="hits">0</td>
+      </tr>
+      
+      <tr class="uncov">
         <td class="name">user_follow_user</td>
         <td class="verb">POST</td>
         <td class="path">/users/:user_id/users/:id/follow(.:format)</td>
@@ -604,6 +626,17 @@ tr.odd td {
         <td class="cont">
           
           users#unfollow
+        </td>
+        <td class="hits">0</td>
+      </tr>
+      
+      <tr class="uncov">
+        <td class="name">user_button</td>
+        <td class="verb">POST</td>
+        <td class="path">/users/:user_id/button(.:format)</td>
+        <td class="cont">
+          
+          posts#test_a_button
         </td>
         <td class="hits">0</td>
       </tr>
@@ -829,12 +862,12 @@ tr.odd td {
       </tr>
       
       <tr class="uncov">
-        <td class="name">posts</td>
+        <td class="name">appointment</td>
         <td class="verb">GET</td>
-        <td class="path">/posts(.:format)</td>
+        <td class="path">/appointments/:id(.:format)</td>
         <td class="cont">
           
-          posts#index
+          appointments#show
         </td>
         <td class="hits">0</td>
       </tr>
@@ -1011,6 +1044,17 @@ tr.odd td {
         <td class="cont">
           
           main#main
+        </td>
+        <td class="hits">0</td>
+      </tr>
+      
+      <tr class="uncov">
+        <td class="name"></td>
+        <td class="verb">GET|POST</td>
+        <td class="path">/*path(.:format)</td>
+        <td class="cont">
+          
+          application#routing_error
         </td>
         <td class="hits">0</td>
       </tr>

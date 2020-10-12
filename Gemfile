@@ -40,13 +40,13 @@ gem 'has_friendship'
 gem 'jquery-rails'
 gem 'link_thumbnailer'
 gem 'omniauth-google-oauth2'
+gem 'open-weather'
+gem 'pagy', '~> 3.5'
 gem 'pry'
 gem 'rdoc'
 gem 'routes_coverage', groups: [:test]
+gem 'rubycritic', require: false
 gem 'sassc-rails'
-gem 'open-weather'
-gem 'pagy', '~> 3.5'
-gem "rubycritic", require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -71,7 +71,6 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
-
 end
 
 group :test do

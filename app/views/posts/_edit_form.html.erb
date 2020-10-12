@@ -1,5 +1,4 @@
 <% if user_signed_in? && current_user.id == @post.user_id %>
-  <%#= form_for @post, url: user_post_path(@post), html: { method: :put } do |fr| %>
   <%= form_for [@user, @post], url: user_post_path do |fr| %>
       <% if @post.errors.any? %>
             <div id="error_explanation">

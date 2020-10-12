@@ -3,7 +3,6 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <!-- <title>Livewire</title> -->
     <title><%= content_for?(:title) ? yield(:title) : "Livewire" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Livewire" %>">
     <%= csrf_meta_tags %>
@@ -17,6 +16,7 @@
     <link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/lux/bulmaswatch.min.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    <%= favicon_link_tag asset_path('logo/lw_logo.png') %>
   </head>
   <body>
     <section class="container">
