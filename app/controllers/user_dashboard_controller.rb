@@ -11,14 +11,7 @@ class UserDashboardController < ApplicationController
 
     getIP
     getWeather
-
-    @country = @ipdata['country_code']
-
-    url = "https://newsapi.org/v2/top-headlines?country=#{@country}&sortBy=publishedAt&apiKey=#{@news_key}"
-
-    resp = Net::HTTP.get_response(URI.parse(url))
-    @data = JSON.parse(resp.body)
-    @news_count = @data['articles'].size
+    getNews
   end
 
   def show
@@ -62,5 +55,15 @@ class UserDashboardController < ApplicationController
 
     dat = weather_info.to_json
     @current_w = JSON.parse(dat)
+  end
+
+  def getNews
+    @country = @ipdata['country_code']
+
+    url = "https://newsapi.org/v2/top-headlines?country=#{@country}&sortBy=publishedAt&apiKey=#{@news_key}"
+
+    resp = Net::HTTP.get_response(URI.parse(url))
+    @data = JSON.parse(resp.body)
+    @news_count = @data['articles'].size
   end
 end

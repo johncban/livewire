@@ -120,10 +120,11 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(:id, :appt_name, :appt_description, :appt_date,
                                         locations_attributes: %i[
-                                          id
+                                          id: appointment.id
                                           appt_address
                                           appt_city
                                           appt_state
+                                          _destroy: true
                                         ])
   end
 end

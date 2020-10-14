@@ -2,7 +2,6 @@ class Appointment < ApplicationRecord
   validates_presence_of :appt_name, :appt_description, :appt_date
 
   belongs_to :user
-  # has_many :posts, dependent: :destroy
 
   has_many :users, through: :locations
   has_many :locations
