@@ -62,7 +62,7 @@
 <%= render "layouts/footer" %>
 
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoiam9obmNiYW4iLCJhIjoiY2pzYjFhNm03MDU5MzQzcDNiMTdoaHJrZSJ9.lL465jGkjHv8C3HyMtbygw';
+    mapboxgl.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
 
     var map = new mapboxgl.Map({
         container: 'map',
