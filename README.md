@@ -1,6 +1,6 @@
 ![LiveWire](https://rawcdn.githack.com/johncban/livewire/0806f62afecf3b3f9da856120a37849f6e968e3a/app/assets/images/logo/lw_logo.png)
 Third Flatiron Project for Software Engineering Path.
-LiveWire App offers semi-social media features, such as adding friends, posting posts and commenting posts.
+[LiveWire](https://johncban.github.io/project_livewire_-_rails_6) App offers semi-social media features, such as adding friends, posting posts and commenting posts.
 
 ### Top Gems
 These are the top major gems that support the LiveWire features.
