@@ -18,5 +18,7 @@ User.destroy_all
 User.create!([
                { name: 'John Doe', email: 'jd@jd.com', password: 'jd123456', password_confirmation: 'jd123456', reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil },
                { name: 'John Annon', email: 'ja@ja.com', password: 'ja123456', password_confirmation: 'ja123456', reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil },
-               { name: 'John Q', email: 'jq@jq.com', password: 'jq123456', password_confirmation: 'jq123456', reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil }
+               { name: 'John Q', email: 'jq@jq.com', password: 'jq123456', password_confirmation: 'jq123456', reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil },
+               { name: 'John Oh', email: 'jo@jo.com', password: 'jo123456', password_confirmation: 'jo123456', reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil },
+               { name: 'John No', email: 'jn@jn.com', password: 'jn123456', password_confirmation: 'jn123456', reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil }
              ])
