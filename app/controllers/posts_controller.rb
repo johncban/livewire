@@ -66,10 +66,9 @@ class PostsController < ApplicationController
     redirect_to :user_posts, error: 'Not Available'
   end
 
-
   private
 
-  def post_publish 
+  def post_publish
     if @post.published == false && @post.user_id != current_user.id
       redirect_to :user_posts, warning: 'Post Not Published'
     elsif @post.published == false && @post.user_id == current_user.id
@@ -77,7 +76,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def post_content 
+  def post_content
     if @post.post_content =~ URI::DEFAULT_PARSER.make_regexp
       object = LinkThumbnailer.generate(@post.post_content)
       @title = object.title
