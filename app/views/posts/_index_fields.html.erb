@@ -7,13 +7,7 @@
   <div class="card-content">
     <div class="content post-shadow">
         <div class="has-text-centered">
-        <% if post.post_content =~ URI::regexp  %>
-          <% object = LinkThumbnailer.generate(post.post_content) %>
-          <strong><%= object.title %></strong><hr>
           <%= post.post_content_html %>
-        <% else %>
-          <%= post.post_content_html %>
-        <% end %>
         </div>
        <br>
         <strong>

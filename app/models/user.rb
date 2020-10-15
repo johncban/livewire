@@ -5,9 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
-  has_many :appointments, through: :locations
+  has_many :appointments, through: :locations, dependent: :destroy
   has_many :comments, through: :posts
-  has_many :appointments, dependent: :delete_all
+  has_many :appointments, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 

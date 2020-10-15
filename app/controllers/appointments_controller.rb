@@ -1,3 +1,5 @@
+require 'geocoder'
+
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_appointment, only: %i[show edit update destroy]
@@ -120,11 +122,10 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(:id, :appt_name, :appt_description, :appt_date,
                                         locations_attributes: %i[
-                                          id: appointment.id
+                                          id
                                           appt_address
                                           appt_city
                                           appt_state
-                                          _destroy: true
                                         ])
   end
 end

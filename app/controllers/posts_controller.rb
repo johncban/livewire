@@ -18,7 +18,6 @@ class PostsController < ApplicationController
   def show
     find_post
     @src = URI.extract(@post.post_content)[0]
-    post_content
     @new_comment = Comment.build_from(@post, current_user.id, '')
   end
 
@@ -73,15 +72,6 @@ class PostsController < ApplicationController
       redirect_to :user_posts, warning: 'Post Not Published'
     elsif @post.published == false && @post.user_id == current_user.id
       redirect_to :edit_user_post, info: 'Enable Publish to Public Posts'
-    end
-  end
-
-  def post_content
-    if @post.post_content =~ URI::DEFAULT_PARSER.make_regexp
-      object = LinkThumbnailer.generate(@post.post_content)
-      @title = object.title
-    else
-      @post
     end
   end
 
