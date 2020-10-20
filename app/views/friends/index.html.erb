@@ -75,14 +75,14 @@
                     <nav class="level is-mobile">
                       <div class="level-left">
                         <%= form_tag ({controller: 'friends', action: 'add', method: 'post', id: friend.id}) do %>
-                          <button class="button is-outlined is-success">
+                          <button class="button is-success">
                             <span class="icon is-small">
                               <i class="fas fa-user-check"></i>
                             </span>
                           </button>
                         <% end %>
                         <%= form_tag ({controller: 'friends', action: 'reject', method: 'post', id: friend.id}) do %>
-                          <button class="button is-outlined is-link">
+                          <button class="button is-link">
                             <span class="icon is-small">
                               <i class="fas fa-user-times"></i>
                             </span>
