@@ -71,6 +71,7 @@ class AppointmentsController < ApplicationController
     end
   end
 
+
   def covidCountyData
     url = URI('https://covid19-us-api.herokuapp.com/county')
 
@@ -91,6 +92,13 @@ class AppointmentsController < ApplicationController
     @new_death = cd19['message'][0]['new_death']
     @fatality = cd19['message'][0]['fatality_rate']
     @last_update = cd19['message'][0]['last_update']
+  end
+
+  def search
+    @search = params[:search].to_s.downcase
+    @results = Location.all.select do |city|
+      city.appt_city.downcase.include?(@search)
+    end
   end
 
   private
@@ -120,7 +128,7 @@ class AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.require(:appointment).permit(:id, :appt_name, :appt_description, :appt_date,
+    params.require(:appointment).permit(:id, :appt_name, :appt_description, :appt_date, :search,
                                         locations_attributes: %i[
                                           id
                                           appt_address
@@ -128,4 +136,5 @@ class AppointmentsController < ApplicationController
                                           appt_state
                                         ])
   end
+
 end

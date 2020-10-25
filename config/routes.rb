@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     post :'/users/:id/follow', to: 'users#follow', as: 'follow_user'
     post :'/users/:id/unfollow', to: 'users#unfollow', as: 'unfollow_user'
     post :'/button', to: 'posts#test_a_button', as: 'button'
+    get '/appointments/search' => 'appointments/search'
+    post '/appointments/search' => 'appointments/search'
     resources :posts
     resources :appointments
   end
@@ -27,6 +29,8 @@ Rails.application.routes.draw do
   post '/friends/remove' => 'friends/remove'
   get '/friends/search' => 'friends/search'
   post '/friends/search' => 'friends/search'
+
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'main#main'

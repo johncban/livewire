@@ -13,6 +13,7 @@ class PostsController < ApplicationController
                Post.published
              end
     @pagy, @posts = pagy(@posts.reorder('created_at DESC'), page: params[:page], items: 4)
+    p @posts.to_json
   end
 
   def show

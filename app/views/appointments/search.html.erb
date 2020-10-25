@@ -1,0 +1,35 @@
+<% if @results == [] %>
+  <main class="ui raised very padded text container segment">
+    <header class="ui basic segment">
+      <h3 class="title is-2">Search Results</h3>
+      <p>No Results Found</p>
+    </header>
+  </main>
+<% else %>
+  <main class="ui teal raised very padded text container segment">
+    <header class="ui basic segment">
+      <h3 class="title is-2">Search Results</h3>
+    </header>
+    <br>
+    <% @results.each do |city| %>
+        <div class="ui vertical clearing segment">
+          <div class="ui basic segment">
+            <div class="box">
+              <article class="media">
+                <div class="media-content">
+                  <div class="title title-1">
+                    <%= link_to city.appt_city, user_appointment_path(current_user.id, city) %>
+                   </div>
+                  </div>
+                </article>
+              </div>
+            <br>
+        </div>
+    <% end %>
+    </div>
+  </main>
+<% end %>
+<hr>
+<div class="button is-primary is-large is-outlined">
+  <a href="/users/<%= current_user.id %>/appointments">Back</a>
+</div>
