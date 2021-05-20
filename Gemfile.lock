@@ -197,7 +197,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
@@ -211,8 +213,8 @@ GEM
     net-http-persistent (4.0.0)
       connection_pool (~> 2.2)
     net_http_timeout_errors (0.3.5)
-    nio4r (2.5.4)
-    nio4r (2.5.4-java)
+    nio4r (2.5.7)
+    nio4r (2.5.7-java)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.10-java)
@@ -259,9 +261,9 @@ GEM
       spoon (~> 0.0)
     psych (3.1.0)
     public_suffix (4.0.6)
-    puma (4.3.6)
+    puma (4.3.8)
       nio4r (~> 2.0)
-    puma (4.3.6-java)
+    puma (4.3.8-java)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-proxy (0.6.5)
@@ -497,7 +499,7 @@ DEPENDENCIES
   open-weather
   pagy (~> 3.5)
   pry
-  puma (~> 4.1)
+  puma (~> 4.3)
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-controller-testing
   rails-erd
